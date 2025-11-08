@@ -1,74 +1,14 @@
 :root {
-    --bg-main: #0a192f;       /* Tone 1: Deep Navy (Keep this unchanged) */
-    --bg-secondary: #172a45;  /* Tone 2: Updated to be more visible */
-    --accent: #64ffda;        /* Neon Cyan Accent */
+    --bg-main: #0a192f;
+    --bg-secondary: #172a45;
+    --accent: #64ffda;
     --text-primary: #ccd6f6;
     --text-secondary: #8892b0;
 }
-/* --- ANIMATED BACKGROUND ORBS --- */
-.animated-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; /* Crucial: keeps it BEHIND everything */
-    overflow: hidden;
-}
 
-.orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(150px); /* The "Apple" soft light effect */
-    opacity: 0.2;         /* Subtle, not overwhelming */
-    animation: drift 20s infinite alternate ease-in-out;
-}
-
-/* Orb 1: The Neon Accent One */
-.orb-1 {
-    width: 600px;
-    height: 600px;
-    background: var(--accent);
-    top: -100px;
-    left: -100px;
-    animation-duration: 25s;
-}
-
-/* Orb 2: A Deeper Purple/Blue One */
-.orb-2 {
-    width: 800px;
-    height: 800px;
-    background: #4a00e0;
-    bottom: -200px;
-    right: -200px;
-    animation-duration: 30s;
-    animation-delay: -5s; /* Starts at a different point in animation */
-}
-
-/* Orb 3: A bright cyan highlight */
-.orb-3 {
-    width: 500px;
-    height: 500px;
-    background: #00ffff;
-    bottom: 30%;
-    left: 20%;
-    opacity: 0.2;
-    animation-duration: 35s;
-    animation-delay: -10s;
-}
-
-/* The drifting animation physics */
-@keyframes drift {
-    0% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(100px, 50px) scale(1.1); }
-    100% { transform: translate(-50px, 100px) scale(0.9); }
-}
-/* --- MOBILE OVERFLOW PROTECTION --- */
+/* --- BASE SETUP --- */
 html, body {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden; /* Forces the browser to cut off anything that sticks out sideways */
-    position: relative; /* Helps stabilize layout on some mobile browsers */
+    width: 100%; max-width: 100%; overflow-x: hidden; position: relative;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
 body {
@@ -77,684 +17,198 @@ body {
     color: var(--text-primary);
     line-height: 1.6;
 }
-
-/* UTILITIES */
 .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 .section { padding: 100px 0; }
 .accent { color: var(--accent); }
-h1, h2, h3, h4 { color: var(--text-primary); font-weight: 600; }
-h2 {
-    font-size: 2rem;
-    margin-bottom: 40px;
-    display: flex;
-    align-items: center;
-}
-h2::after {
-    content: "";
-    display: block;
-    height: 1px;
-    width: 300px;
-    background-color: #233554;
-    margin-left: 20px;
-}
 a { text-decoration: none; color: var(--accent); transition: all 0.3s; }
+
+/* --- TYPOGRAPHY --- */
+h1, h2, h3, h4 { color: var(--text-primary); font-weight: 600; }
+
+/* FIX 1: Restored the flex display so the line appears NEXT to the text */
+h2 {
+    font-size: 2rem; margin-bottom: 40px;
+    display: flex; align-items: center; /* This makes the line sit next to text */
+}
+/* The line itself */
+h2::after {
+    content: ""; display: block; height: 1px; width: 300px;
+    background-color: #233554; margin-left: 20px;
+}
+
+.centered-heading {
+    text-align: center; text-transform: uppercase; font-size: 2.5rem;
+    font-weight: 800; letter-spacing: 2px; margin-bottom: 40px;
+    display: block; /* Overrides the flex above for centered headings */
+}
+.centered-heading::after { display: none; /* Hides the line for centered headings */ }
+
+.dynamic-text {
+    background: linear-gradient(-45deg, var(--accent), #8e2de2, #4a00e0, var(--accent));
+    background-size: 300% 300%; -webkit-background-clip: text;
+    background-clip: text; color: transparent; animation: gradient-shift 5s ease infinite;
+}
+@keyframes gradient-shift {
+    0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; }
+}
+.mono-heading { font-family: monospace; color: var(--accent); margin-bottom: 20px; display: block; }
 .btn {
-    display: inline-block;
-    padding: 12px 28px;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    border-radius: 4px;
-    font-family: monospace;
-    margin-top: 20px;
+    display: inline-block; padding: 12px 28px; border: 1px solid var(--accent);
+    color: var(--accent); border-radius: 4px; font-family: monospace; margin-top: 20px;
 }
 .btn:hover { background: rgba(100, 255, 218, 0.1); }
 
-/* NAVIGATION */
+/* --- ANIMATED BACKGROUND --- */
+.animated-background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
+.orb { position: absolute; border-radius: 50%; filter: blur(150px); opacity: 0.2; animation: drift 20s infinite alternate ease-in-out; }
+.orb-1 { width: 600px; height: 600px; background: var(--accent); top: -100px; left: -100px; animation-duration: 25s; }
+.orb-2 { width: 800px; height: 800px; background: #4a00e0; bottom: -200px; right: -200px; animation-duration: 30s; animation-delay: -5s; }
+.orb-3 { width: 500px; height: 500px; background: #00ffff; bottom: 30%; left: 20%; opacity: 0.2; animation-duration: 35s; animation-delay: -10s; }
+@keyframes drift {
+    0% { transform: translate(0, 0) scale(1); } 50% { transform: translate(100px, 50px) scale(1.1); } 100% { transform: translate(-50px, 100px) scale(0.9); }
+}
+
+/* --- NAVIGATION --- */
 nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px; /* Reduced padding for mobile screens */
-    position: fixed;
-    width: 100%;
-    top: 0;      /* ANCHOR TO TOP */
-    left: 0;     /* ANCHOR TO LEFT EDGE */
-    background: rgba(10, 25, 47, 0.85) !important; /* Slightly higher opacity for readability on mobile */
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
-    z-index: 1000; /* Ensure it stays on top of everything */
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 20px; position: fixed; width: 100%; top: 0; left: 0;
+    background: rgba(10, 25, 47, 0.6) !important; backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important; z-index: 1000;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 .logo { color: var(--accent); font-weight: 800; font-size: 1.5rem; }
-.nav-links a {
-    margin-left: 30px;
-    color: var(--text-primary);
-    font-size: 0.9rem;
-    font-family: monospace;
-}
-.nav-links a:hover { color: var(--accent); }
-/* --- SLIDING NAV BUBBLE --- */
-
-/* 1. Update container to hold the bubble */
-.nav-links {
-    position: relative; /* Crucial: lets the bubble move relative to this box */
-    display: flex;
-    align-items: center;
-    /* Add a little padding so the bubble doesn't hit the edges */
-    padding: 5px;
-}
-
-/* 2. The actual bubble style */
+.nav-links { position: relative; display: flex; align-items: center; padding: 5px; }
+.nav-links a { position: relative; z-index: 2; padding: 8px 16px; margin: 0 5px; color: var(--text-primary); font-size: 0.9rem; font-family: monospace; }
+.nav-links a:hover { color: #ffffff !important; }
 .nav-bubble {
-    position: absolute;
-    height: 40px; /* Fixed height for consistency */
-    border-radius: 20px; /* perfectly round ends (half of height) */
-    z-index: -1; /* Sits BEHIND the text */
-    opacity: 0; /* Hidden by default until you hover */
-
-    /* Glass Bubble Look */
-    background: rgba(100, 255, 218, 0.15); /* Faint accent color */
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(100, 255, 218, 0.2);
-    box-shadow: 0 0 15px rgba(100, 255, 218, 0.1); /* subtle glow */
-
-    /* Smooth sliding physics */
+    position: absolute; height: 40px; border-radius: 20px; z-index: -1; opacity: 0;
+    background: rgba(100, 255, 218, 0.15); backdrop-filter: blur(8px);
+    border: 1px solid rgba(100, 255, 218, 0.2); box-shadow: 0 0 15px rgba(100, 255, 218, 0.1);
     transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-    /* Using 'left' and 'width' for movement - simple and effective here */
+}
+.hamburger { display: none; font-size: 1.5rem; color: var(--accent); cursor: pointer; z-index: 2000; }
+
+/* --- HERO --- */
+.hero { min-height: 100vh; display: flex; align-items: center; padding-top: 0; }
+.hero h1 { font-size: 4rem; line-height: 1.1; color: #e6f1ff; }
+.hero h2 { font-size: 3rem; color: var(--text-secondary); margin-bottom: 20px; }
+.hero p { max-width: 540px; color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 30px; }
+
+/* FIX 2: Hero bubble size fixed to fill container */
+.hero-content-glass {
+    background: rgba(10, 25, 47, 0.5); backdrop-filter: blur(10px);
+    padding: 40px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.05);
+    width: 100%; /* Forces it to take full available width */
 }
 
-/* 3. Update links to sit nicely on top of the bubble */
-.nav-links a {
-    position: relative;
-    z-index: 2; /* Ensures text is ON TOP of the bubble */
-    padding: 8px 16px; /* Gives the bubble some space to 'breathe' around text */
-    margin-left: 5px;  /* Reduced margin since we have padding now */
-    margin-right: 5px;
-    transition: color 0.3s;
-}
-
-/* Optional: Make text brighter when bubble is under it */
-.nav-links a:hover {
-    color: #ffffff !important; /* Pure white text on hover for contrast */
-}
-
-/* HERO SECTION */
-.hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding-top: 0;
-}
-.hero h1 {
-    font-size: 4rem;
-    line-height: 1.1;
-    color: #e6f1ff;
-}
-.hero h2 {
-    font-size: 3rem;
-    color: var(--text-secondary);
-    margin-bottom: 20px;
-}
-.hero p {
-    max-width: 540px;
-    color: var(--text-secondary);
-    font-size: 1.1rem;
-    margin-bottom: 30px;
-}
-.mono-heading {
-    font-family: monospace;
-    color: var(--accent);
-    margin-bottom: 20px;
-    display: block;
-}
-
-/* ABOUT & SKILLS GRID */
-.about-grid {
-    display: grid;
-    grid-template-columns: 3fr 2fr;
-    gap: 50px;
-}
-.skills-list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    font-family: monospace;
-    font-size: 0.9rem;
-    margin-top: 20px;
-}
-.skills-list li {
-    color: var(--text-secondary);
-    list-style: none;
-    position: relative;
-    padding-left: 20px;
-}
-.skills-list li::before {
-    content: "▹";
-    position: absolute;
-    left: 0;
-    color: var(--accent);
-}
-
-/* EXPERIENCE TIMELINE */
-/* --- FINAL FIXED TIMELINE (No Overlap) --- */
-.timeline {
-    position: relative;
-    max-width: 800px;
-    padding-left: 10px; /* Breathing room for the line itself */
-}
-
-/* The vertical line */
-.timeline::before {
-    content: '';
-    position: absolute;
-    left: 10px; /* Line sits 10px from the left edge */
-    top: 5px;
-    width: 2px;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.3);
-}
-
-/* THE JOB ITEMS */
-.timeline-item {
-    position: relative;
-    margin-bottom: 30px;
-    /* REDUCED MARGIN: Closer to the line now (was 50px) */
-    margin-left: 20px;
-    padding: 25px;
-    border-radius: 15px;
-    background: transparent;
-    border: 1px solid transparent;
-    transition: all 0.3s ease;
-}
-
-/* The dots on the line */
-.timeline-item::after {
-    content: '';
-    position: absolute;
-    /* ADJUSTED POSITION: Matches new margin to stay on the line (was -55px) */
-    left: -25px;
-    top: 30px;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 0 4px var(--bg-main);
-    transition: all 0.3s ease;
-}
-
-/* HOVER STATE: Bubble appears, but safely away from the line */
-.timeline-item:hover {
-    background: rgba(17, 34, 64, 0.8);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-color: rgba(100, 255, 218, 0.3);
-    transform: translateX(5px); /* Subtle move right */
-}
-
-/* Hover state for the dot */
-.timeline-item:hover::after {
-    background: #fff;
-    box-shadow: 0 0 15px var(--accent);
-}
-.job-title { font-size: 1.3rem; color: #e6f1ff; }
-.company { color: var(--accent); }
-.job-date {
-    font-family: monospace;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    margin-bottom: 15px;
-    display: block;
-}
-.job-details li {
-    color: var(--text-secondary);
-    margin-bottom: 10px;
-    list-style: none;
-    position: relative;
-    padding-left: 20px;
-}
-.job-details li::before {
-    content: "▹";
-    position: absolute;
-    left: 0;
-    color: var(--accent);
-}
-
-/* PROJECTS */
-/* --- ULTRA GLASS PROJECT CARDS --- */
-/* Matches the base style of your new About Me bubble */
-.project-card {
-    background: rgba(17, 34, 64, 0.15) !important;  /* Very transparent */
-    backdrop-filter: blur(20px) !important;         /* Max frost */
-    -webkit-backdrop-filter: blur(20px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important; /* Crisper borders */
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 0 32px rgba(255, 255, 255, 0.05) !important;
-    border-radius: 20px;
-    padding: 2rem;
-    margin-bottom: 30px; /* Ensures space between them when they grow */
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; /* Bouncy physics */
-}
-
-/* Hover State for Project Cards */
-.project-card:hover {
-    border-color: var(--accent) !important;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(100, 255, 218, 0.1) !important;
-    z-index: 10; /* Ensures it grows ON TOP of other things */
-
-    /* CHANGE '1.05' TO '1.5' HERE IF YOU WANT THEM MASSIVE LIKE YOUR BIO */
-    transform: translateY(-10px) scale(1.05) !important;
-}
-.project-top {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2px;
-    color: var(--accent);
-    font-size: 2rem;
-}
-.project-title {
-    color: #e6f1ff;
-    font-size: 1.4rem;
-    margin-bottom: 10px;
-}
-.project-desc {
-    color: var(--text-secondary);
-    font-size: 1rem;
-    margin-bottom: 20px;
-}
-.project-tech {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    font-family: monospace;
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-}
-
-/* FOOTER */
-.footer {
-    text-align: center;
-    padding: 20px;
-    color: var(--text-secondary);
-    font-family: monospace;
-    font-size: 0.8rem;
-}
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-    .hero h1 { font-size: 3rem; }
-    .hero h2 { font-size: 2rem; }
-    .about-grid { grid-template-columns: 1fr; }
-    .nav-links { display: none; } /* Simple hide for mobile for now */
-}
-
-/* --- SCROLL ANIMATIONS --- */
-
-/* The starting state (invisible and pushed down slightly) */
-.hidden-animate {
-    opacity: 0;
-    filter: blur(2px);
-    transform: translateY(30px); /* Slides up from 30px below */
-    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth easing */
-}
-
-/* The ending state (fully visible and in original position) */
-.show-animate {
-    opacity: 1;
-    filter: blur(0);
-    transform: translateY(0);
-}
-
-/* Optional: Add a slight delay to elements if they are grouped together */
-.timeline-item:nth-child(2) { transition-delay: 0.2s; }
-.project-card:nth-child(2) { transition-delay: 0.2s; }
-
-/* Accessibility: Turn off animations for users who prefer reduced motion */
-@media (prefers-reduced-motion) {
-    .hidden-animate {
-        opacity: 1;
-        filter: none;
-        transform: none;
-        transition: none;
-    }
-}
-
-/* --- DYNAMIC CENTERED HEADING --- */
-.centered-heading {
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 2.5rem; /* Bigger size for impact */
-    font-weight: 800;
-    letter-spacing: 2px;
-    margin-bottom: 40px;
-    display: block; /* Ensures it takes full width to center properly */
-}
-
-/* Remove the old side-line effect for this specific heading */
-.centered-heading::after {
-    display: none;
-}
-
-/* Dynamic color changing animation */
-.dynamic-text {
-    background: linear-gradient(
-        -45deg,
-        var(--accent),
-        #8e2de2,
-        #4a00e0,
-        var(--accent)
-    );
-    background-size: 300% 300%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: gradient-shift 5s ease infinite;
-}
-
-@keyframes gradient-shift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* Ensure the core technologies pop up individually */
-.skills-list li {
-    /* Inherits the .hidden-animate properties we set earlier */
-}
-
-/* Staggered delay for a nicer "pop-pop-pop" effect */
-.skills-list li:nth-child(1) { transition-delay: 0.1s; }
-.skills-list li:nth-child(2) { transition-delay: 0.2s; }
-.skills-list li:nth-child(3) { transition-delay: 0.3s; }
-.skills-list li:nth-child(4) { transition-delay: 0.4s; }
-.skills-list li:nth-child(5) { transition-delay: 0.5s; }
-.skills-list li:nth-child(6) { transition-delay: 0.6s; }
-.skills-list li:nth-child(7) { transition-delay: 0.7s; }
-.skills-list li:nth-child(8) { transition-delay: 0.8s; }
-
-/* --- TWO-TONE UTILITY --- */
-/* Apply this class to HTML sections you want highlighted in Tone 2 */
-/* --- TWO-TONE BLENDING UTILITY --- */
+/* --- ABOUT & SKILLS --- */
 .bg-alt {
-    
-    background: linear-gradient(
-        to bottom,
-        rgba(10, 25, 47, 0.9) 0%,
-        rgba(23, 42, 69, 0.9) 15%,
-        rgba(23, 42, 69, 0.9) 85%,
-        rgba(10, 25, 47, 0.9) 100%
-    );
+    background: linear-gradient(to bottom, rgba(10, 25, 47, 0.9) 0%, rgba(23, 42, 69, 0.9) 15%, rgba(23, 42, 69, 0.9) 85%, rgba(10, 25, 47, 0.9) 100%);
     border: none;
 }
-
-/* --- GLASSMORPHISM & BUBBLE EFFECTS --- */
-
-/* 1. Super Glassy Navigation Override */
-nav {
-    background: rgba(10, 25, 47, 0.6) !important; /* More see-through */
-    backdrop-filter: blur(20px) !important;       /* Stronger blur */
-    -webkit-backdrop-filter: blur(20px) !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+.glass-bio {
+    background: rgba(17, 34, 64, 0.7) !important; backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important; border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 0 32px rgba(255, 255, 255, 0.05);
+    border-radius: 25px; padding: 40px; max-width: 800px; margin: 0 auto 50px auto;
+    text-align: center; transition: all 0.4s ease;
+}
+/* FIX 3: Restored 1.50 magnification */
+.glass-bio:hover {
+    border-color: rgba(100, 255, 218, 0.4) !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(100, 255, 218, 0.05);
+    transform: translateY(-5px) scale(1.50); /* 1.50 ZOOM RESTORED */
 }
 
-/* 2. The "Glass Bubble" Physics (Reusable Class) */
-.glass-bubble, .project-card {
-    /* Glass Base Style */
-    background: rgba(17, 34, 64, 0.7) !important; /* Semi-transparent navy */
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);          /* For Safari */
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    border-radius: 20px !important;               /* Smooth corners */
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; /* Bouncy physics */
+/* FIX 4: Tech list centering and grouping */
+.tech-container { max-width: 800px; margin: 0 auto; text-align: center; }
+.tech-list-interactive {
+    display: flex; flex-wrap: wrap; justify-content: center; /* Ensures they cluster in center */
+    gap: 12px; padding: 20px; list-style: none;
 }
-
-/* 3. The Hover "Pop" Effect */
-.glass-bubble:hover, .project-card:hover {
-    background: rgba(23, 42, 69, 0.8) !important; /* Slightly less transparent on hover */
-    border-color: var(--accent) !important;        /* Neon glow border */
-    transform: translateY(-10px) scale(1.02) !important; /* Lifts and grows */
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4) !important; /* Deep shadow */
-    border-radius: 35px !important;               /* Becomes rounder like a real bubble */
+.tech-bubble {
+    background: rgba(100, 255, 218, 0.03); backdrop-filter: blur(8px);
+    border: 1px solid rgba(100, 255, 218, 0.2); padding: 12px 25px; border-radius: 50px;
+    color: var(--accent); font-family: monospace; font-size: 0.95rem; cursor: default;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+.tech-bubble:hover { transform: scale(1.2); background: var(--accent); color: var(--bg-main); box-shadow: 0 0 20px rgba(100, 255, 218, 0.4); z-index: 10; }
+.tech-list-interactive:hover .tech-bubble { opacity: 0.5; transform: scale(0.95); }
+.tech-list-interactive .tech-bubble:hover { opacity: 1; transform: scale(1.2); }
 
-/* Optional: Fix timeline items if you want them glassy too */
+/* --- EXPERIENCE TIMELINE --- */
+.timeline { position: relative; max-width: 800px; padding-left: 10px; }
+.timeline::before { content: ''; position: absolute; left: 10px; top: 5px; width: 2px; height: 100%; background: rgba(255, 255, 255, 0.3); }
 .timeline-item {
-    /* Applying glass to timeline items requires extra care to not break the dots */
-    padding: 25px 25px 25px 40px !important; /* Add padding for the glass box */
-    border-radius: 20px;
+    position: relative; margin-bottom: 30px; margin-left: 30px; padding: 25px;
+    border-radius: 15px; background: transparent; border: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+.timeline-item::after {
+    content: ''; position: absolute; left: -35px; top: 30px; width: 12px; height: 12px;
+    border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--bg-main);
     transition: all 0.3s ease;
 }
 .timeline-item:hover {
-    background: rgba(17, 34, 64, 0.4);
-    backdrop-filter: blur(5px);
-    border-radius: 30px;
+    background: rgba(17, 34, 64, 0.8); backdrop-filter: blur(10px);
+    border-color: rgba(100, 255, 218, 0.3); transform: translateX(5px);
 }
+.timeline-item:hover::after { background: #fff; box-shadow: 0 0 15px var(--accent); }
+.job-title { font-size: 1.3rem; color: #e6f1ff; }
+.company { color: var(--accent); }
+.job-date { font-family: monospace; font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 15px; display: block; }
+.job-details li { color: var(--text-secondary); margin-bottom: 10px; list-style: none; position: relative; padding-left: 20px; }
+.job-details li::before { content: "▹"; position: absolute; left: 0; color: var(--accent); }
 
-/* --- ULTRA GLASS BIO BUBBLE --- */
-.glass-bio {
-    /* Very transparent background so you see through it */
-    background: rgba(17, 34, 64, 0.7) !important;
-    /* Maximum blur for frosty effect */
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
-    /* Crisper, brighter border to define the glass edges */
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    /* subtle inner glow to make it feel thick like real glass */
-    box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.2),
-        inset 0 0 32px rgba(255, 255, 255, 0.05);
-    border-radius: 25px;
-    padding: 40px;
-    max-width: 800px;
-    margin: 0 auto 50px auto;
-    text-align: center;
-    transition: all 0.4s ease;
+/* --- PROJECTS & WIP --- */
+.project-card, .glass-bubble {
+    background: rgba(17, 34, 64, 0.7) !important; backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important; border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 0 32px rgba(255, 255, 255, 0.05) !important;
+    border-radius: 20px !important; padding: 2rem; margin-bottom: 30px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
 }
-
-/* Optional: Make it slightly 'active' when you touch it */
-.glass-bio:hover {
-    border-color: rgba(100, 255, 218, 0.4) !important; /* Neon accent border on hover */
-    box-shadow:
-        0 15px 40px rgba(0, 0, 0, 0.3),
-        inset 0 0 20px rgba(100, 255, 218, 0.05);
-    transform: translateY(-5px) scale(1.50); /* Tiny lift and grow */
+.project-card:hover, .glass-bubble:hover {
+    border-color: var(--accent) !important; z-index: 10;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(100, 255, 218, 0.1) !important;
+    transform: translateY(-10px) scale(1.05) !important;
 }
-
-/* --- INTERACTIVE TECH BUBBLES --- */
-.tech-container {
-    max-width: 700px;
-    margin: 0 auto;
-    text-align: center;
-}
-.tech-list-interactive {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    padding: 20px;
-    list-style: none;
-}
-
-/* Individual bubbles (default state) */
-.tech-bubble {
-    /* Lighter, more transparent background */
-    background: rgba(100, 255, 218, 0.03);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(100, 255, 218, 0.2);
-    padding: 12px 25px;
-    border-radius: 50px;
-    color: var(--accent);
-    font-family: monospace;
-    font-size: 0.95rem;
-    cursor: default;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-/* --- TONED DOWN MAGNIFICATION --- */
-
-/* 1. Target bubble grows much less (only 20% bigger now) */
-.tech-bubble:hover {
-    transform: scale(1.2); /* Changed from 1.5 to 1.2 */
-    background: var(--accent);
-    color: var(--bg-main);
-    box-shadow: 0 0 20px rgba(100, 255, 218, 0.4);
-    z-index: 10;
-}
-
-/* 2. Others still shrink slightly for contrast */
-.tech-list-interactive:hover .tech-bubble {
-    opacity: 0.5;
-    transform: scale(0.95); /* Slightly less aggressive shrinking too */
-}
-
-/* 3. Override for the hovered item */
-.tech-list-interactive .tech-bubble:hover {
-    opacity: 1;
-    transform: scale(1.2); /* Match the new scale above */
-}
-
-/* --- WIP SECTION STYLES --- */
-
-/* A 3-column grid for smaller WIP cards */
-.wip-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
-    margin-top: 40px;
-}
-
-/* Status Pills (e.g., "Early Dev", "Backend Done") */
+.project-top { display: flex; justify-content: space-between; margin-bottom: 10px; align-items: center; }
+.project-title { color: #e6f1ff; font-size: 1.4rem; margin-bottom: 10px; }
+.project-desc { color: var(--text-secondary); font-size: 1rem; margin-bottom: 20px; }
+.project-tech { display: flex; flex-wrap: wrap; gap: 15px; font-family: monospace; font-size: 0.8rem; color: var(--text-secondary); }
+.wip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 40px; }
 .status-pill {
-    display: inline-block;
-    font-family: monospace;
-    font-size: 0.75rem;
-    padding: 4px 12px;
-    border-radius: 50px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 15px;
-    background: rgba(100, 255, 218, 0.1);
-    border: 1px solid var(--accent);
-    color: var(--accent);
+    display: inline-block; font-family: monospace; font-size: 0.75rem; padding: 4px 12px;
+    border-radius: 50px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px;
+    background: rgba(100, 255, 218, 0.1); border: 1px solid var(--accent); color: var(--accent);
 }
+.status-pill.early { background: rgba(255, 255, 255, 0.1); border-color: var(--text-secondary); color: var(--text-secondary); }
 
-/* Modifier for when something is very early stage (optional, gives variety) */
-.status-pill.early {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: var(--text-secondary);
-    color: var(--text-secondary);
-}
+/* --- FOOTER & ANIMATIONS --- */
+.footer { text-align: center; padding: 20px; color: var(--text-secondary); font-family: monospace; font-size: 0.8rem; }
+.hidden-animate { opacity: 0; filter: blur(2px); transform: translateY(30px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+.show-animate { opacity: 1; filter: blur(0); transform: translateY(0); }
+@media (prefers-reduced-motion) { .hidden-animate { opacity: 1; filter: none; transform: none; transition: none; } }
 
-/* --- MOBILE TEXT FIXES --- */
+/* --- MOBILE RESPONSIVE RULES --- */
 @media (max-width: 768px) {
-    /* 1. Shrink the massive Hero headings */
-    .hero h1 {
-        font-size: 2.5rem; /* Was 4rem - much better for mobile */
-        line-height: 1.2;
-    }
-    .hero h2 {
-        font-size: 1.6rem; /* Was 3rem */
-        line-height: 1.3;
-        margin-bottom: 15px;
-    }
+    .hero h1 { font-size: 2.5rem; line-height: 1.2; }
+    .hero h2 { font-size: 1.6rem; line-height: 1.3; margin-bottom: 15px; }
+    .hero p { font-size: 1rem; max-width: 100%; padding-right: 10px; }
+    .container { padding: 0 20px; }
+    .about-grid { grid-template-columns: 1fr; }
+    /* FIX 2 (Mobile part): Ensuring Hero fits on phone */
+    .hero-content-glass { padding: 25px 20px !important; width: 100% !important; margin: 0; }
 
-    /* 2. Ensure the paragraph doesn't try to be wider than the screen */
-    .hero p {
-        font-size: 1rem;     /* Slightly smaller text for readability */
-        max-width: 100%;     /* CRITICAL: forces it to fit the phone width */
-        padding-right: 10px; /* Adds a tiny safety buffer on the right */
-    }
-
-    /* 3. Adjust container padding for small screens so text has room */
-    .container {
-        padding: 0 20px;     /* Ensures text doesn't hit the exact edge of screen */
-    }
-
-    /* 4. Ensure the 'Hi my name is' fits */
-    .mono-heading {
-        font-size: 0.9rem;
-    }
-}
-
-.hero-content-glass {
-    background: rgba(10, 25, 47, 0.5); /* Semi-transparent dark box */
-    backdrop-filter: blur(10px);
-    padding: 40px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    max-width: 100%; /* Keeps text from getting too wide */
-}
-
-.timeline-item {
-    /* Add standard glass effect to each job entry */
-    background: rgba(17, 34, 64, 0.6);
-    backdrop-filter: blur(10px);
-    padding: 30px !important; /* Increased padding for the box */
-    border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    margin-bottom: 30px; /* More space between jobs */
-    transition: transform 0.3s ease;
-}
-.timeline-item:hover {
-    background: rgba(23, 42, 69, 0.8);
-    transform: translateX(10px); /* Slight slide to right on hover */
-}
-
-/* --- MOBILE NAVIGATION MENU --- */
-
-/* 1. Default: Hide the hamburger on big screens */
-.hamburger {
-    display: none;
-    font-size: 1.5rem;
-    color: var(--accent);
-    cursor: pointer;
-    z-index: 2000; /* Must be ON TOP of the slide-out menu */
-}
-
-/* 2. Mobile specific styles */
-@media (max-width: 768px) {
-    .hero-content-glass {
-        padding: 25px 20px !important; /* Reduced side padding prevents overflow */
-        width: auto !important;        /* Stops forcing 100% width if it doesn't fit */
-        margin: 0 10px;                /* Adds a tiny safety margin on the sides */
-    }
-    /* Show the hamburger */
-    .hamburger {
-        display: block;
-    }
-
-    /* Hide the desktop bubble */
-    .nav-bubble {
-        display: none !important;
-    }
-
-    /* Transform the links into a slide-out drawer */
+    .hamburger { display: block; }
+    .nav-bubble { display: none !important; }
     .nav-links {
-        position: fixed;
-        top: 0;
-        right: -100%; /* Start hidden off-screen to the right */
-        height: 100vh;
-        width: 75%;   /* Covers 75% of the screen */
-        background: rgba(10, 25, 47, 0.98); /* Nearly solid dark glass */
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        flex-direction: column; /* Stack links vertically */
-        justify-content: center;
-        align-items: center;
-        transition: right 0.3s ease-in-out; /* Smooth slide effect */
-        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+        position: fixed; top: 0; right: -100%; height: 100vh; width: 75%;
+        background: rgba(10, 25, 47, 0.98); backdrop-filter: blur(10px);
+        flex-direction: column; justify-content: center; align-items: center;
+        transition: right 0.3s ease-in-out; box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
     }
-
-    /* The 'Active' class that JS will add to slide it in */
-    .nav-links.active {
-        right: 0; /* Slides into view */
-    }
-
-    /* Space out the mobile links nicely */
-    .nav-links a {
-        font-size: 1.2rem;
-        margin: 20px 0;
-        display: block;
-    }
+    .nav-links.active { right: 0; }
+    .nav-links a { font-size: 1.2rem; margin: 20px 0; display: block; }
 }
