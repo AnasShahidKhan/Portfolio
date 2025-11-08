@@ -121,7 +121,7 @@ nav {
 }
 
 /* FIX 4: Tech list centering and grouping */
-.tech-container { max-width: 800px; margin: 0 auto; text-align: center; }
+.tech-container { max-width: 680px; margin: 0 auto; text-align: center; }
 .tech-list-interactive {
     display: flex; flex-wrap: wrap; justify-content: center; /* Ensures they cluster in center */
     gap: 12px; padding: 20px; list-style: none;
