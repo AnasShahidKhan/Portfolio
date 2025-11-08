@@ -5,6 +5,64 @@
     --text-primary: #ccd6f6;
     --text-secondary: #8892b0;
 }
+/* --- ANIMATED BACKGROUND ORBS --- */
+.animated-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Crucial: keeps it BEHIND everything */
+    overflow: hidden;
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(150px); /* The "Apple" soft light effect */
+    opacity: 0.2;         /* Subtle, not overwhelming */
+    animation: drift 20s infinite alternate ease-in-out;
+}
+
+/* Orb 1: The Neon Accent One */
+.orb-1 {
+    width: 600px;
+    height: 600px;
+    background: var(--accent);
+    top: -100px;
+    left: -100px;
+    animation-duration: 25s;
+}
+
+/* Orb 2: A Deeper Purple/Blue One */
+.orb-2 {
+    width: 800px;
+    height: 800px;
+    background: #4a00e0;
+    bottom: -200px;
+    right: -200px;
+    animation-duration: 30s;
+    animation-delay: -5s; /* Starts at a different point in animation */
+}
+
+/* Orb 3: A bright cyan highlight */
+.orb-3 {
+    width: 500px;
+    height: 500px;
+    background: #00ffff;
+    bottom: 30%;
+    left: 20%;
+    opacity: 0.2;
+    animation-duration: 35s;
+    animation-delay: -10s;
+}
+
+/* The drifting animation physics */
+@keyframes drift {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(100px, 50px) scale(1.1); }
+    100% { transform: translate(-50px, 100px) scale(0.9); }
+}
 /* --- MOBILE OVERFLOW PROTECTION --- */
 html, body {
     width: 100%;
@@ -75,6 +133,51 @@ nav {
     font-family: monospace;
 }
 .nav-links a:hover { color: var(--accent); }
+/* --- SLIDING NAV BUBBLE --- */
+
+/* 1. Update container to hold the bubble */
+.nav-links {
+    position: relative; /* Crucial: lets the bubble move relative to this box */
+    display: flex;
+    align-items: center;
+    /* Add a little padding so the bubble doesn't hit the edges */
+    padding: 5px;
+}
+
+/* 2. The actual bubble style */
+.nav-bubble {
+    position: absolute;
+    height: 40px; /* Fixed height for consistency */
+    border-radius: 20px; /* perfectly round ends (half of height) */
+    z-index: -1; /* Sits BEHIND the text */
+    opacity: 0; /* Hidden by default until you hover */
+
+    /* Glass Bubble Look */
+    background: rgba(100, 255, 218, 0.15); /* Faint accent color */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(100, 255, 218, 0.2);
+    box-shadow: 0 0 15px rgba(100, 255, 218, 0.1); /* subtle glow */
+
+    /* Smooth sliding physics */
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    /* Using 'left' and 'width' for movement - simple and effective here */
+}
+
+/* 3. Update links to sit nicely on top of the bubble */
+.nav-links a {
+    position: relative;
+    z-index: 2; /* Ensures text is ON TOP of the bubble */
+    padding: 8px 16px; /* Gives the bubble some space to 'breathe' around text */
+    margin-left: 5px;  /* Reduced margin since we have padding now */
+    margin-right: 5px;
+    transition: color 0.3s;
+}
+
+/* Optional: Make text brighter when bubble is under it */
+.nav-links a:hover {
+    color: #ffffff !important; /* Pure white text on hover for contrast */
+}
 
 /* HERO SECTION */
 .hero {
@@ -134,33 +237,65 @@ nav {
 }
 
 /* EXPERIENCE TIMELINE */
+/* --- FINAL FIXED TIMELINE (No Overlap) --- */
 .timeline {
     position: relative;
     max-width: 800px;
+    padding-left: 10px; /* Breathing room for the line itself */
 }
+
+/* The vertical line */
 .timeline::before {
     content: '';
     position: absolute;
-    left: 0;
+    left: 10px; /* Line sits 10px from the left edge */
     top: 5px;
     width: 2px;
     height: 100%;
-    background: var(--bg-secondary);
+    background: rgba(255, 255, 255, 0.3);
 }
+
+/* THE JOB ITEMS */
 .timeline-item {
     position: relative;
-    padding-left: 40px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
+    /* REDUCED MARGIN: Closer to the line now (was 50px) */
+    margin-left: 20px;
+    padding: 25px;
+    border-radius: 15px;
+    background: transparent;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
 }
+
+/* The dots on the line */
 .timeline-item::after {
     content: '';
     position: absolute;
-    left: -4px;
-    top: 5px;
-    width: 10px;
-    height: 10px;
+    /* ADJUSTED POSITION: Matches new margin to stay on the line (was -55px) */
+    left: -25px;
+    top: 30px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     background: var(--accent);
+    box-shadow: 0 0 0 4px var(--bg-main);
+    transition: all 0.3s ease;
+}
+
+/* HOVER STATE: Bubble appears, but safely away from the line */
+.timeline-item:hover {
+    background: rgba(17, 34, 64, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-color: rgba(100, 255, 218, 0.3);
+    transform: translateX(5px); /* Subtle move right */
+}
+
+/* Hover state for the dot */
+.timeline-item:hover::after {
+    background: #fff;
+    box-shadow: 0 0 15px var(--accent);
 }
 .job-title { font-size: 1.3rem; color: #e6f1ff; }
 .company { color: var(--accent); }
@@ -340,20 +475,14 @@ nav {
 /* Apply this class to HTML sections you want highlighted in Tone 2 */
 /* --- TWO-TONE BLENDING UTILITY --- */
 .bg-alt {
-    /* Old solid color (keep as fallback) */
-    background-color: var(--bg-secondary);
-
-    /* NEW: Smooth gradient blend */
-    /* Starts dark, fades to Tone 2 by 15% down, stays Tone 2 until 85% down, fades back to dark */
+    
     background: linear-gradient(
         to bottom,
-        var(--bg-main) 0%,
-        var(--bg-secondary) 15%,
-        var(--bg-secondary) 85%,
-        var(--bg-main) 100%
+        rgba(10, 25, 47, 0.9) 0%,
+        rgba(23, 42, 69, 0.9) 15%,
+        rgba(23, 42, 69, 0.9) 85%,
+        rgba(10, 25, 47, 0.9) 100%
     );
-
-    /* Optional: Removes standard borders if you had them, to keep the blend smooth */
     border: none;
 }
 
@@ -370,7 +499,7 @@ nav {
 /* 2. The "Glass Bubble" Physics (Reusable Class) */
 .glass-bubble, .project-card {
     /* Glass Base Style */
-    background: rgba(17, 34, 64, 0.6) !important; /* Semi-transparent navy */
+    background: rgba(17, 34, 64, 0.7) !important; /* Semi-transparent navy */
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);          /* For Safari */
     border: 1px solid rgba(255, 255, 255, 0.08) !important;
@@ -404,7 +533,7 @@ nav {
 /* --- ULTRA GLASS BIO BUBBLE --- */
 .glass-bio {
     /* Very transparent background so you see through it */
-    background: rgba(17, 34, 64, 0.15) !important;
+    background: rgba(17, 34, 64, 0.7) !important;
     /* Maximum blur for frosty effect */
     backdrop-filter: blur(20px) !important;
     -webkit-backdrop-filter: blur(20px) !important;
@@ -545,5 +674,82 @@ nav {
     /* 4. Ensure the 'Hi my name is' fits */
     .mono-heading {
         font-size: 0.9rem;
+    }
+}
+
+.hero-content-glass {
+    background: rgba(10, 25, 47, 0.5); /* Semi-transparent dark box */
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    max-width: 100%; /* Keeps text from getting too wide */
+}
+
+.timeline-item {
+    /* Add standard glass effect to each job entry */
+    background: rgba(17, 34, 64, 0.6);
+    backdrop-filter: blur(10px);
+    padding: 30px !important; /* Increased padding for the box */
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 30px; /* More space between jobs */
+    transition: transform 0.3s ease;
+}
+.timeline-item:hover {
+    background: rgba(23, 42, 69, 0.8);
+    transform: translateX(10px); /* Slight slide to right on hover */
+}
+
+/* --- MOBILE NAVIGATION MENU --- */
+
+/* 1. Default: Hide the hamburger on big screens */
+.hamburger {
+    display: none;
+    font-size: 1.5rem;
+    color: var(--accent);
+    cursor: pointer;
+    z-index: 2000; /* Must be ON TOP of the slide-out menu */
+}
+
+/* 2. Mobile specific styles */
+@media (max-width: 768px) {
+    /* Show the hamburger */
+    .hamburger {
+        display: block;
+    }
+
+    /* Hide the desktop bubble */
+    .nav-bubble {
+        display: none !important;
+    }
+
+    /* Transform the links into a slide-out drawer */
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%; /* Start hidden off-screen to the right */
+        height: 100vh;
+        width: 75%;   /* Covers 75% of the screen */
+        background: rgba(10, 25, 47, 0.98); /* Nearly solid dark glass */
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        flex-direction: column; /* Stack links vertically */
+        justify-content: center;
+        align-items: center;
+        transition: right 0.3s ease-in-out; /* Smooth slide effect */
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+    }
+
+    /* The 'Active' class that JS will add to slide it in */
+    .nav-links.active {
+        right: 0; /* Slides into view */
+    }
+
+    /* Space out the mobile links nicely */
+    .nav-links a {
+        font-size: 1.2rem;
+        margin: 20px 0;
+        display: block;
     }
 }
