@@ -516,3 +516,34 @@ nav {
     border-color: var(--text-secondary);
     color: var(--text-secondary);
 }
+
+/* --- MOBILE TEXT FIXES --- */
+@media (max-width: 768px) {
+    /* 1. Shrink the massive Hero headings */
+    .hero h1 {
+        font-size: 2.5rem; /* Was 4rem - much better for mobile */
+        line-height: 1.2;
+    }
+    .hero h2 {
+        font-size: 1.6rem; /* Was 3rem */
+        line-height: 1.3;
+        margin-bottom: 15px;
+    }
+
+    /* 2. Ensure the paragraph doesn't try to be wider than the screen */
+    .hero p {
+        font-size: 1rem;     /* Slightly smaller text for readability */
+        max-width: 100%;     /* CRITICAL: forces it to fit the phone width */
+        padding-right: 10px; /* Adds a tiny safety buffer on the right */
+    }
+
+    /* 3. Adjust container padding for small screens so text has room */
+    .container {
+        padding: 0 20px;     /* Ensures text doesn't hit the exact edge of screen */
+    }
+
+    /* 4. Ensure the 'Hi my name is' fits */
+    .mono-heading {
+        font-size: 0.9rem;
+    }
+}
