@@ -199,7 +199,11 @@ nav {
     .container { padding: 0 20px; }
     .about-grid { grid-template-columns: 1fr; }
     /* FIX 2 (Mobile part): Ensuring Hero fits on phone */
-    .hero-content-glass { padding: 25px 20px !important; width: 100% !important; margin: 0; }
+    .hero-content-glass {
+        width: auto !important;  /* This was '100%', changed to 'auto' to fix overflow */
+        margin: 0 15px !important; /* Adds safe space on left and right */
+        padding: 30px 20px !important; /* Reduced padding for small screens */
+    }
 
     .hamburger { display: block; }
     .nav-bubble { display: none !important; }
