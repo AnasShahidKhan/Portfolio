@@ -714,6 +714,11 @@ nav {
 
 /* 2. Mobile specific styles */
 @media (max-width: 768px) {
+    .hero-content-glass {
+        padding: 25px 20px !important; /* Reduced side padding prevents overflow */
+        width: auto !important;        /* Stops forcing 100% width if it doesn't fit */
+        margin: 0 10px;                /* Adds a tiny safety margin on the sides */
+    }
     /* Show the hamburger */
     .hamburger {
         display: block;
