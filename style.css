@@ -5,6 +5,13 @@
     --text-primary: #ccd6f6;
     --text-secondary: #8892b0;
 }
+/* --- MOBILE OVERFLOW PROTECTION --- */
+html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden; /* Forces the browser to cut off anything that sticks out sideways */
+    position: relative; /* Helps stabilize layout on some mobile browsers */
+}
 * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
 body {
     font-family: 'Inter', sans-serif;
@@ -49,12 +56,16 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 40px;
+    padding: 15px 20px; /* Reduced padding for mobile screens */
     position: fixed;
     width: 100%;
-    background: rgba(10, 25, 47, 0.95);
-    z-index: 100;
-    backdrop-filter: blur(10px);
+    top: 0;      /* ANCHOR TO TOP */
+    left: 0;     /* ANCHOR TO LEFT EDGE */
+    background: rgba(10, 25, 47, 0.85) !important; /* Slightly higher opacity for readability on mobile */
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    z-index: 1000; /* Ensure it stays on top of everything */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 .logo { color: var(--accent); font-weight: 800; font-size: 1.5rem; }
 .nav-links a {
@@ -175,16 +186,28 @@ nav {
 }
 
 /* PROJECTS */
+/* --- ULTRA GLASS PROJECT CARDS --- */
+/* Matches the base style of your new About Me bubble */
 .project-card {
-    background-color: var(--bg-secondary);
+    background: rgba(17, 34, 64, 0.15) !important;  /* Very transparent */
+    backdrop-filter: blur(20px) !important;         /* Max frost */
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important; /* Crisper borders */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 0 32px rgba(255, 255, 255, 0.05) !important;
+    border-radius: 20px;
     padding: 2rem;
-    border-radius: 4px;
-    transition: transform 0.3s;
-    border: 1px solid transparent;
+    margin-bottom: 30px; /* Ensures space between them when they grow */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; /* Bouncy physics */
 }
+
+/* Hover State for Project Cards */
 .project-card:hover {
-    transform: translateY(-7px);
-    border-color: var(--accent);
+    border-color: var(--accent) !important;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(100, 255, 218, 0.1) !important;
+    z-index: 10; /* Ensures it grows ON TOP of other things */
+
+    /* CHANGE '1.05' TO '1.5' HERE IF YOU WANT THEM MASSIVE LIKE YOUR BIO */
+    transform: translateY(-10px) scale(1.05) !important;
 }
 .project-top {
     display: flex;
@@ -332,4 +355,164 @@ nav {
 
     /* Optional: Removes standard borders if you had them, to keep the blend smooth */
     border: none;
+}
+
+/* --- GLASSMORPHISM & BUBBLE EFFECTS --- */
+
+/* 1. Super Glassy Navigation Override */
+nav {
+    background: rgba(10, 25, 47, 0.6) !important; /* More see-through */
+    backdrop-filter: blur(20px) !important;       /* Stronger blur */
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 2. The "Glass Bubble" Physics (Reusable Class) */
+.glass-bubble, .project-card {
+    /* Glass Base Style */
+    background: rgba(17, 34, 64, 0.6) !important; /* Semi-transparent navy */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);          /* For Safari */
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    border-radius: 20px !important;               /* Smooth corners */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; /* Bouncy physics */
+}
+
+/* 3. The Hover "Pop" Effect */
+.glass-bubble:hover, .project-card:hover {
+    background: rgba(23, 42, 69, 0.8) !important; /* Slightly less transparent on hover */
+    border-color: var(--accent) !important;        /* Neon glow border */
+    transform: translateY(-10px) scale(1.02) !important; /* Lifts and grows */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4) !important; /* Deep shadow */
+    border-radius: 35px !important;               /* Becomes rounder like a real bubble */
+}
+
+/* Optional: Fix timeline items if you want them glassy too */
+.timeline-item {
+    /* Applying glass to timeline items requires extra care to not break the dots */
+    padding: 25px 25px 25px 40px !important; /* Add padding for the glass box */
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+.timeline-item:hover {
+    background: rgba(17, 34, 64, 0.4);
+    backdrop-filter: blur(5px);
+    border-radius: 30px;
+}
+
+/* --- ULTRA GLASS BIO BUBBLE --- */
+.glass-bio {
+    /* Very transparent background so you see through it */
+    background: rgba(17, 34, 64, 0.15) !important;
+    /* Maximum blur for frosty effect */
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    /* Crisper, brighter border to define the glass edges */
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    /* subtle inner glow to make it feel thick like real glass */
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.2),
+        inset 0 0 32px rgba(255, 255, 255, 0.05);
+    border-radius: 25px;
+    padding: 40px;
+    max-width: 800px;
+    margin: 0 auto 50px auto;
+    text-align: center;
+    transition: all 0.4s ease;
+}
+
+/* Optional: Make it slightly 'active' when you touch it */
+.glass-bio:hover {
+    border-color: rgba(100, 255, 218, 0.4) !important; /* Neon accent border on hover */
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.3),
+        inset 0 0 20px rgba(100, 255, 218, 0.05);
+    transform: translateY(-5px) scale(1.50); /* Tiny lift and grow */
+}
+
+/* --- INTERACTIVE TECH BUBBLES --- */
+.tech-container {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+}
+.tech-list-interactive {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    padding: 20px;
+    list-style: none;
+}
+
+/* Individual bubbles (default state) */
+.tech-bubble {
+    /* Lighter, more transparent background */
+    background: rgba(100, 255, 218, 0.03);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(100, 255, 218, 0.2);
+    padding: 12px 25px;
+    border-radius: 50px;
+    color: var(--accent);
+    font-family: monospace;
+    font-size: 0.95rem;
+    cursor: default;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* --- TONED DOWN MAGNIFICATION --- */
+
+/* 1. Target bubble grows much less (only 20% bigger now) */
+.tech-bubble:hover {
+    transform: scale(1.2); /* Changed from 1.5 to 1.2 */
+    background: var(--accent);
+    color: var(--bg-main);
+    box-shadow: 0 0 20px rgba(100, 255, 218, 0.4);
+    z-index: 10;
+}
+
+/* 2. Others still shrink slightly for contrast */
+.tech-list-interactive:hover .tech-bubble {
+    opacity: 0.5;
+    transform: scale(0.95); /* Slightly less aggressive shrinking too */
+}
+
+/* 3. Override for the hovered item */
+.tech-list-interactive .tech-bubble:hover {
+    opacity: 1;
+    transform: scale(1.2); /* Match the new scale above */
+}
+
+/* --- WIP SECTION STYLES --- */
+
+/* A 3-column grid for smaller WIP cards */
+.wip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 40px;
+}
+
+/* Status Pills (e.g., "Early Dev", "Backend Done") */
+.status-pill {
+    display: inline-block;
+    font-family: monospace;
+    font-size: 0.75rem;
+    padding: 4px 12px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    background: rgba(100, 255, 218, 0.1);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+}
+
+/* Modifier for when something is very early stage (optional, gives variety) */
+.status-pill.early {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--text-secondary);
+    color: var(--text-secondary);
 }

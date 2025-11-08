@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Anas Shahid | Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -16,6 +16,7 @@
             <a href="#about"><span class="accent">01.</span> About</a>
             <a href="#experience"><span class="accent">02.</span> Experience</a>
             <a href="#projects"><span class="accent">03.</span> Projects</a>
+            <a href="#wip"><span class="accent">04.</span> In Lab</a>
             <a href="#contact"><span class="accent">04.</span> Contact</a>
         </div>
     </nav>
@@ -36,26 +37,28 @@
         <div class="container">
             <h2 class="centered-heading dynamic-text">About Me</h2>
 
-            <div class="about-text" style="max-width: 800px; margin: 0 auto; text-align: center;">
-                <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 1.1rem;">
-                    Hello! I am Anas, a BSc Computer Science student at Swansea University. I am currently on track with 90% and above grades in Stage 2. I enjoy bridging the gap between complex technical theory and real-world operational needs.
+            <div class="glass-bio">
+                <p style="color: var(--text-primary); margin-bottom: 15px; font-size: 1.1rem;">
+                    Hello! I am Anas, a BSc Computer Science student at Swansea University, currently on track with 90%+ grades in Stage 2. I enjoy bridging the gap between complex technical theory and real-world operational needs.
                 </p>
-                <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 50px;">
-                    Recently, I earned my EC-Council Cybersecurity Technician certification. My interest lies in understanding the mechanics behind new innovations, from custom car modifications to the latest in digital forensics and network security.
+                <p style="color: var(--text-primary); font-size: 1.1rem; margin: 0;">
+                    Recently, I earned my <strong>EC-Council Cybersecurity Technician</strong> certification. My interest lies in understanding the mechanics behind new innovations, from custom car modifications to the latest in digital forensics and network security.
                 </p>
             </div>
 
-            <div style="max-width: 600px; margin: 0 auto; text-align: center;">
+            <div class="tech-container">
                 <h4 style="margin-bottom:25px; color: var(--accent); font-family: monospace;">// Core Technologies</h4>
-                <ul class="skills-list" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px 30px;">
-                    <li>Java & Python</li>
-                    <li>C++ / C#</li>
-                    <li>JavaScript (ES6+)</li>
-                    <li>Network Security</li>
-                    <li>Digital Forensics</li>
-                    <li>SQL / DBMS</li>
-                    <li>Git & Agile</li>
-                    <li>Data Analysis</li>
+                <ul class="tech-list-interactive">
+                    <li class="tech-bubble">Java</li>
+                    <li class="tech-bubble">Python</li>
+                    <li class="tech-bubble">C++ / C#</li>
+                    <li class="tech-bubble">JavaScript</li>
+                    <li class="tech-bubble">Network Security</li>
+                    <li class="tech-bubble">Digital Forensics</li>
+                    <li class="tech-bubble">SQL / DBMS</li>
+                    <li class="tech-bubble">Git & Agile</li>
+                    <li class="tech-bubble">HTML & CSS</li>
+                    <li class="tech-bubble">Data Analysis</li>
                 </ul>
             </div>
         </div>
@@ -134,6 +137,56 @@
                     <span>JavaScript</span>
                     <span>Responsive Design</span>
                     <span>Formspree API</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="wip" class="section">
+        <div class="container">
+            <h2 class="centered-heading dynamic-text">In The Lab</h2>
+            <p style="text-align: center; max-width: 600px; margin: 0 auto; color: var(--text-secondary);">
+                I am always building. Here are the projects currently on my workbench.
+            </p>
+
+            <div class="wip-grid">
+                <div class="project-card glass-bubble" style="padding: 30px; margin:0;">
+                    <span class="status-pill early">Early Development</span>
+                    <h3 style="font-size: 1.4rem; margin-bottom: 15px; color: #e6f1ff;">Passportly AI</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 20px;">
+                        A web app visualizing global visa requirements on an interactive world map. Features an integrated AI assistant (Llama 3) that users can query for specific travel and visa procedures.
+                    </p>
+                    <div class="project-tech" style="font-size: 0.75rem;">
+                        <span>Laravel</span>
+                        <span>Llama 3 AI</span>
+                        <span>Leaflet Maps</span>
+                    </div>
+                </div>
+
+                <div class="project-card glass-bubble" style="padding: 30px; margin:0;">
+                    <span class="status-pill">Frontend Complete</span>
+                    <h3 style="font-size: 1.4rem; margin-bottom: 15px; color: #e6f1ff;">Tahammul App</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 20px;">
+                        An Android habit tracker for health and eco-friendly activities. Features automated step counting, weather-based exercise advice, and daily healthy recipes using external APIs.
+                    </p>
+                    <div class="project-tech" style="font-size: 0.75rem;">
+                        <span>Kotlin</span>
+                        <span>Android Studio</span>
+                        <span>REST APIs</span>
+                    </div>
+                </div>
+
+                <div class="project-card glass-bubble" style="padding: 30px; margin:0;">
+                    <span class="status-pill">Backend Complete</span>
+                    <h3 style="font-size: 1.4rem; margin-bottom: 15px; color: #e6f1ff;">Fixnest</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 20px;">
+                        A "problem cafe" social web app where users share DIY solutions to common household issues. Users can interact by liking, saving, and commenting on community solutions.
+                    </p>
+                    <div class="project-tech" style="font-size: 0.75rem;">
+                        <span>Laravel</span>
+                        <span>PHP MVC</span>
+                        <span>MySQL</span>
+                    </div>
                 </div>
             </div>
         </div>
