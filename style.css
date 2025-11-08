@@ -192,19 +192,36 @@ nav {
 @media (prefers-reduced-motion) { .hidden-animate { opacity: 1; filter: none; transform: none; transition: none; } }
 
 /* --- MOBILE RESPONSIVE RULES --- */
+/* --- MOBILE RESPONSIVE RULES (AGGRESSIVE FIX) --- */
 @media (max-width: 768px) {
-    .hero h1 { font-size: 2.5rem; line-height: 1.2; }
-    .hero h2 { font-size: 1.6rem; line-height: 1.3; margin-bottom: 15px; }
-    .hero p { font-size: 1rem; max-width: 100%; padding-right: 10px; }
-    .container { padding: 0 20px; }
-    .about-grid { grid-template-columns: 1fr; }
-    /* FIX 2 (Mobile part): Ensuring Hero fits on phone */
-    .hero-content-glass {
-        width: auto !important;  /* This was '100%', changed to 'auto' to fix overflow */
-        margin: 0 15px !important; /* Adds safe space on left and right */
-        padding: 30px 20px !important; /* Reduced padding for small screens */
+    /* 1. Global Mobile Reset for this section */
+    .hero .container {
+        padding: 0 10px !important; /* Minimal outer padding */
+        width: 100% !important;
+        max-width: 100vw !important; /* Force it to never exceed viewport width */
+        overflow: hidden; /* Hide anything that still tries to stick out */
     }
 
+    /* 2. Aggressive text resizing */
+    .hero h1 { font-size: 2.2rem; line-height: 1.1; word-wrap: break-word; }
+    .hero h2 { font-size: 1.5rem; line-height: 1.2; margin-bottom: 15px; }
+    .hero p { font-size: 0.95rem; max-width: 100%; }
+
+    /* 3. HERO GLASS FORCE FIT */
+    .hero-content-glass {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;      /* Center it perfectly */
+        padding: 30px 15px !important;  /* Very slim internal padding */
+        box-sizing: border-box !important; /* Crucial: padding stays INSIDE width */
+        border-radius: 15px !important; /* Slightly less round corners save space */
+    }
+
+    /* 4. Ensure About Grid doesn't overflow */
+    .about-grid { grid-template-columns: 1fr; }
+    .container { padding: 0 15px; }
+
+    /* 5. Mobile Nav Drawer */
     .hamburger { display: block; }
     .nav-bubble { display: none !important; }
     .nav-links {
