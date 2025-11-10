@@ -7,131 +7,134 @@
 }
 
 /* --- BASE SETUP --- */
-html, body {
-    width: 100%; max-width: 100%; overflow-x: hidden; position: relative;
-}
+html, body { width: 100%; max-width: 100%; overflow-x: hidden; position: relative; }
 * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bg-main);
-    color: var(--text-primary);
-    line-height: 1.6;
-}
-.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+body { font-family: 'Inter', sans-serif; background-color: var(--bg-main); color: var(--text-primary); line-height: 1.6; }
+.container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
 .section { padding: 100px 0; }
 .accent { color: var(--accent); }
 a { text-decoration: none; color: var(--accent); transition: all 0.3s; }
+.btn { display: inline-block; padding: 12px 28px; border: 1px solid var(--accent); color: var(--accent); border-radius: 4px; font-family: monospace; margin-top: 20px; }
+.btn:hover { background: rgba(100, 255, 218, 0.1); }
 
 /* --- TYPOGRAPHY --- */
 h1, h2, h3, h4 { color: var(--text-primary); font-weight: 600; }
-
-/* FIX 1: Restored the flex display so the line appears NEXT to the text */
-h2 {
-    font-size: 2rem; margin-bottom: 40px;
-    display: flex; align-items: center; /* This makes the line sit next to text */
-}
-/* The line itself */
-h2::after {
-    content: ""; display: block; height: 1px; width: 300px;
-    background-color: #233554; margin-left: 20px;
-}
-
-.centered-heading {
-    text-align: center; text-transform: uppercase; font-size: 2.5rem;
-    font-weight: 800; letter-spacing: 2px; margin-bottom: 40px;
-    display: block; /* Overrides the flex above for centered headings */
-}
-.centered-heading::after { display: none; /* Hides the line for centered headings */ }
-
-.dynamic-text {
-    background: linear-gradient(-45deg, var(--accent), #8e2de2, #4a00e0, var(--accent));
-    background-size: 300% 300%; -webkit-background-clip: text;
-    background-clip: text; color: transparent; animation: gradient-shift 5s ease infinite;
-}
-@keyframes gradient-shift {
-    0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; }
-}
+/* Default sub-heading with line */
+h2 { font-size: 2rem; margin-bottom: 40px; display: flex; align-items: center; }
+/* Replaced the line with a subtle Terminal icon */
+/* Centered heading overrides */
+.centered-heading { text-align: center; text-transform: uppercase; font-size: 2.5rem; font-weight: 800; letter-spacing: 2px; margin-bottom: 40px; display: block; }
+.centered-heading::after { display: none; }
 .mono-heading { font-family: monospace; color: var(--accent); margin-bottom: 20px; display: block; }
-.btn {
-    display: inline-block; padding: 12px 28px; border: 1px solid var(--accent);
-    color: var(--accent); border-radius: 4px; font-family: monospace; margin-top: 20px;
-}
-.btn:hover { background: rgba(100, 255, 218, 0.1); }
+.dynamic-text { background: linear-gradient(-45deg, var(--accent), #8e2de2, #4a00e0, var(--accent)); background-size: 300% 300%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: gradient-shift 5s ease infinite; }
+@keyframes gradient-shift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
-/* --- ANIMATED BACKGROUND --- */
+/* --- BACKGROUND ANIMATION --- */
 .animated-background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
 .orb { position: absolute; border-radius: 50%; filter: blur(150px); opacity: 0.2; animation: drift 20s infinite alternate ease-in-out; }
 .orb-1 { width: 600px; height: 600px; background: var(--accent); top: -100px; left: -100px; animation-duration: 25s; }
 .orb-2 { width: 800px; height: 800px; background: #4a00e0; bottom: -200px; right: -200px; animation-duration: 30s; animation-delay: -5s; }
 .orb-3 { width: 500px; height: 500px; background: #00ffff; bottom: 30%; left: 20%; opacity: 0.2; animation-duration: 35s; animation-delay: -10s; }
-@keyframes drift {
-    0% { transform: translate(0, 0) scale(1); } 50% { transform: translate(100px, 50px) scale(1.1); } 100% { transform: translate(-50px, 100px) scale(0.9); }
-}
+@keyframes drift { 0% { transform: translate(0, 0) scale(1); } 50% { transform: translate(100px, 50px) scale(1.1); } 100% { transform: translate(-50px, 100px) scale(0.9); } }
 
 /* --- NAVIGATION --- */
-nav {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 15px 20px; position: fixed; width: 100%; top: 0; left: 0;
-    background: rgba(10, 25, 47, 0.6) !important; backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important; z-index: 1000;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
+nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; position: fixed; width: 100%; top: 0; left: 0; background: rgba(10, 25, 47, 0.6) !important; backdrop-filter: blur(20px) !important; -webkit-backdrop-filter: blur(20px) !important; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
 .logo { color: var(--accent); font-weight: 800; font-size: 1.5rem; }
 .nav-links { position: relative; display: flex; align-items: center; padding: 5px; }
 .nav-links a { position: relative; z-index: 2; padding: 8px 16px; margin: 0 5px; color: var(--text-primary); font-size: 0.9rem; font-family: monospace; }
 .nav-links a:hover { color: #ffffff !important; }
-.nav-bubble {
-    position: absolute; height: 40px; border-radius: 20px; z-index: -1; opacity: 0;
-    background: rgba(100, 255, 218, 0.15); backdrop-filter: blur(8px);
-    border: 1px solid rgba(100, 255, 218, 0.2); box-shadow: 0 0 15px rgba(100, 255, 218, 0.1);
-    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-}
+.nav-bubble { position: absolute; height: 40px; border-radius: 20px; z-index: -1; opacity: 0; background: rgba(100, 255, 218, 0.15); backdrop-filter: blur(8px); border: 1px solid rgba(100, 255, 218, 0.2); box-shadow: 0 0 15px rgba(100, 255, 218, 0.1); transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); }
 .hamburger { display: none; font-size: 1.5rem; color: var(--accent); cursor: pointer; z-index: 2000; }
 
-/* --- HERO --- */
-.hero { min-height: 100vh; display: flex; align-items: center; padding-top: 0; }
+/* --- HERO SECTION --- */
+/* Updated Hero Section */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 0;
+    width: 100%; /* Ensures the flex parent is full width */
+}
+.hero .container {
+    width: 100%;             /* Must fill the flex parent */
+    max-width: 90%;          /* Takes up 90% of your TOTAL screen width, very big */
+    padding: 0;              /* Removes side padding to maximize space */
+}
 .hero h1 { font-size: 4rem; line-height: 1.1; color: #e6f1ff; }
 .hero h2 { font-size: 3rem; color: var(--text-secondary); margin-bottom: 20px; }
 .hero p { max-width: 540px; color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 30px; }
-
-/* FIX 2: Hero bubble size fixed to fill container */
 .hero-content-glass {
-    background: rgba(10, 25, 47, 0.5); backdrop-filter: blur(10px);
-    padding: 40px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.05);
-    width: 100%; /* Forces it to take full available width */
+    background: rgba(10, 25, 47, 0.5);
+    backdrop-filter: blur(10px);
+    padding: 60px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    /* FORCE FULL WIDTH */
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+}
+
+/* LAYER 1: The Static Radar Grid */
+.hero-content-glass::before {
+    content: "";
+    position: absolute;
+    /* Positioned off-screen to the bottom right for a dynamic look */
+    right: -150px;
+    bottom: -150px;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    z-index: -1; /* Behind text */
+    opacity: 0.1; /* Very subtle */
+    pointer-events: none;
+
+    /* Drawing the grid with pure CSS gradients */
+    background-image:
+        /* Vertical crosshair line */
+        linear-gradient(to right, transparent 49.8%, var(--accent) 49.8%, var(--accent) 50.2%, transparent 50.2%),
+        /* Horizontal crosshair line */
+        linear-gradient(to bottom, transparent 49.8%, var(--accent) 49.8%, var(--accent) 50.2%, transparent 50.2%),
+        /* Concentric circles (the targets) */
+        repeating-radial-gradient(circle at center, transparent 0, transparent 99px, var(--accent) 99px, var(--accent) 100px);
+    /* Adds a slight glowing rim to the outer edge */
+    box-shadow: 0 0 30px inset var(--accent);
+}
+
+/* LAYER 2: The Rotating Scanner Beam */
+.hero-content-glass::after {
+    content: "";
+    position: absolute;
+    /* MUST match the exact position/size of the grid above */
+    right: -150px;
+    bottom: -150px;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.15; /* Slightly brighter than the grid */
+    pointer-events: none;
+
+    /* The 'Beam' is a conic gradient that fades from transparent to solid accent color */
+    background: conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent 290deg, var(--accent) 360deg);
+
+    /* The continuous rotation */
+    animation: radar-sweep 6s infinite linear;
 }
 
 /* --- ABOUT & SKILLS --- */
-.bg-alt {
-    background: linear-gradient(to bottom, rgba(10, 25, 47, 0.9) 0%, rgba(23, 42, 69, 0.9) 15%, rgba(23, 42, 69, 0.9) 85%, rgba(10, 25, 47, 0.9) 100%);
-    border: none;
-}
+.bg-alt { background: linear-gradient(to bottom, rgba(10, 25, 47, 0.9) 0%, rgba(23, 42, 69, 0.9) 15%, rgba(23, 42, 69, 0.9) 85%, rgba(10, 25, 47, 0.9) 100%); border: none; }
 .glass-bio {
-    background: rgba(17, 34, 64, 0.7) !important; backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important; border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 0 32px rgba(255, 255, 255, 0.05);
-    border-radius: 25px; padding: 40px; max-width: 800px; margin: 0 auto 50px auto;
-    text-align: center; transition: all 0.4s ease;
+    background: rgba(17, 34, 64, 0.7) !important; backdrop-filter: blur(20px) !important; -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 0 32px rgba(255, 255, 255, 0.05);
+    border-radius: 25px; padding: 40px; max-width: 800px; margin: 0 auto 50px auto; text-align: center; transition: all 0.4s ease;
 }
-/* FIX 3: Restored 1.50 magnification */
-.glass-bio:hover {
-    border-color: rgba(100, 255, 218, 0.4) !important;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(100, 255, 218, 0.05);
-    transform: translateY(-5px) scale(1.50); /* 1.50 ZOOM RESTORED */
-}
-
-/* FIX 4: Tech list centering and grouping */
+.glass-bio:hover { border-color: rgba(100, 255, 218, 0.4) !important; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(100, 255, 218, 0.05); transform: translateY(-5px) scale(1.30); }
 .tech-container { max-width: 680px; margin: 0 auto; text-align: center; }
-.tech-list-interactive {
-    display: flex; flex-wrap: wrap; justify-content: center; /* Ensures they cluster in center */
-    gap: 12px; padding: 20px; list-style: none;
-}
-.tech-bubble {
-    background: rgba(100, 255, 218, 0.03); backdrop-filter: blur(8px);
-    border: 1px solid rgba(100, 255, 218, 0.2); padding: 12px 25px; border-radius: 50px;
-    color: var(--accent); font-family: monospace; font-size: 0.95rem; cursor: default;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
+.tech-list-interactive { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; padding: 20px; list-style: none; }
+.tech-bubble { background: rgba(100, 255, 218, 0.03); backdrop-filter: blur(8px); border: 1px solid rgba(100, 255, 218, 0.2); padding: 12px 25px; border-radius: 50px; color: var(--accent); font-family: monospace; font-size: 0.95rem; cursor: default; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 .tech-bubble:hover { transform: scale(1.2); background: var(--accent); color: var(--bg-main); box-shadow: 0 0 20px rgba(100, 255, 218, 0.4); z-index: 10; }
 .tech-list-interactive:hover .tech-bubble { opacity: 0.5; transform: scale(0.95); }
 .tech-list-interactive .tech-bubble:hover { opacity: 1; transform: scale(1.2); }
@@ -139,20 +142,9 @@ nav {
 /* --- EXPERIENCE TIMELINE --- */
 .timeline { position: relative; max-width: 800px; padding-left: 10px; }
 .timeline::before { content: ''; position: absolute; left: 10px; top: 5px; width: 2px; height: 100%; background: rgba(255, 255, 255, 0.3); }
-.timeline-item {
-    position: relative; margin-bottom: 30px; margin-left: 30px; padding: 25px;
-    border-radius: 15px; background: transparent; border: 1px solid transparent;
-    transition: all 0.3s ease;
-}
-.timeline-item::after {
-    content: ''; position: absolute; left: -35px; top: 30px; width: 12px; height: 12px;
-    border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--bg-main);
-    transition: all 0.3s ease;
-}
-.timeline-item:hover {
-    background: rgba(17, 34, 64, 0.8); backdrop-filter: blur(10px);
-    border-color: rgba(100, 255, 218, 0.3); transform: translateX(5px);
-}
+.timeline-item { position: relative; margin-bottom: 30px; margin-left: 30px; padding: 25px; border-radius: 15px; background: transparent; border: 1px solid transparent; transition: all 0.3s ease; }
+.timeline-item::after { content: ''; position: absolute; left: -35px; top: 30px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--bg-main); transition: all 0.3s ease; }
+.timeline-item:hover { background: rgba(17, 34, 64, 0.8); backdrop-filter: blur(10px); border-color: rgba(100, 255, 218, 0.3); transform: translateX(5px); }
 .timeline-item:hover::after { background: #fff; box-shadow: 0 0 15px var(--accent); }
 .job-title { font-size: 1.3rem; color: #e6f1ff; }
 .company { color: var(--accent); }
@@ -161,75 +153,173 @@ nav {
 .job-details li::before { content: "▹"; position: absolute; left: 0; color: var(--accent); }
 
 /* --- PROJECTS & WIP --- */
-.project-card, .glass-bubble {
-    background: rgba(17, 34, 64, 0.7) !important; backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important; border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 0 32px rgba(255, 255, 255, 0.05) !important;
-    border-radius: 20px !important; padding: 2rem; margin-bottom: 30px;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
-}
-.project-card:hover, .glass-bubble:hover {
-    border-color: var(--accent) !important; z-index: 10;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(100, 255, 218, 0.1) !important;
-    transform: translateY(-10px) scale(1.05) !important;
-}
+.project-card, .glass-bubble { background: rgba(17, 34, 64, 0.7) !important; backdrop-filter: blur(20px) !important; -webkit-backdrop-filter: blur(20px) !important; border: 1px solid rgba(255, 255, 255, 0.2) !important; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 0 32px rgba(255, 255, 255, 0.05) !important; border-radius: 20px !important; padding: 2rem; margin-bottom: 30px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; }
+.project-card:hover, .glass-bubble:hover { border-color: var(--accent) !important; z-index: 10; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(100, 255, 218, 0.1) !important; transform: translateY(-10px) scale(1.05) !important; }
 .project-top { display: flex; justify-content: space-between; margin-bottom: 10px; align-items: center; }
 .project-title { color: #e6f1ff; font-size: 1.4rem; margin-bottom: 10px; }
 .project-desc { color: var(--text-secondary); font-size: 1rem; margin-bottom: 20px; }
 .project-tech { display: flex; flex-wrap: wrap; gap: 15px; font-family: monospace; font-size: 0.8rem; color: var(--text-secondary); }
 .wip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 40px; }
-.status-pill {
-    display: inline-block; font-family: monospace; font-size: 0.75rem; padding: 4px 12px;
-    border-radius: 50px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px;
-    background: rgba(100, 255, 218, 0.1); border: 1px solid var(--accent); color: var(--accent);
-}
+.status-pill { display: inline-block; font-family: monospace; font-size: 0.75rem; padding: 4px 12px; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; background: rgba(100, 255, 218, 0.1); border: 1px solid var(--accent); color: var(--accent); }
 .status-pill.early { background: rgba(255, 255, 255, 0.1); border-color: var(--text-secondary); color: var(--text-secondary); }
 
-/* --- FOOTER & ANIMATIONS --- */
-.footer { text-align: center; padding: 20px; color: var(--text-secondary); font-family: monospace; font-size: 0.8rem; }
+/* --- FOOTER & SCROLL FX --- */
+.footer {
+    text-align: center;
+    padding: 20px 0;         /* Reduced side padding since it's in a container now */
+    margin-top: 60px;        /* Pushes it away from the contact card */
+    color: var(--text-secondary);
+    font-family: monospace;
+    font-size: 0.8rem;
+    opacity: 0.7;            /* Slightly fainter for a professional look */
+}
 .hidden-animate { opacity: 0; filter: blur(2px); transform: translateY(30px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
 .show-animate { opacity: 1; filter: blur(0); transform: translateY(0); }
 @media (prefers-reduced-motion) { .hidden-animate { opacity: 1; filter: none; transform: none; transition: none; } }
 
-/* --- MOBILE RESPONSIVE RULES --- */
-/* --- MOBILE RESPONSIVE RULES (AGGRESSIVE FIX) --- */
+/* --- MOBILE RULES (FINAL AGGRESSIVE FIX) --- */
 @media (max-width: 768px) {
-    /* 1. Global Mobile Reset for this section */
-    .hero .container {
-        padding: 0 10px !important; /* Minimal outer padding */
-        width: 100% !important;
-        max-width: 100vw !important; /* Force it to never exceed viewport width */
-        overflow: hidden; /* Hide anything that still tries to stick out */
-    }
+    /* Global Reset */
+    .hero .container { padding: 0 10px !important; width: 100% !important; max-width: 100vw !important; overflow: hidden; }
+    .container { padding: 0 15px; }
 
-    /* 2. Aggressive text resizing */
+    /* Text & Element Hiding */
     .hero h1 { font-size: 2.2rem; line-height: 1.1; word-wrap: break-word; }
     .hero h2 { font-size: 1.5rem; line-height: 1.2; margin-bottom: 15px; }
     .hero p { font-size: 0.95rem; max-width: 100%; }
-
-    /* 3. HERO GLASS FORCE FIT */
-    .hero-content-glass {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 auto !important;      /* Center it perfectly */
-        padding: 30px 15px !important;  /* Very slim internal padding */
-        box-sizing: border-box !important; /* Crucial: padding stays INSIDE width */
-        border-radius: 15px !important; /* Slightly less round corners save space */
+    h2::after { display: none !important; } /* Hide lines next to headings */
+    /* Inside @media (max-width: 768px) */
+    .hero-content-glass::before,
+    .hero-content-glass::after {
+        display: none !important;
     }
 
-    /* 4. Ensure About Grid doesn't overflow */
+    /* Forced Container Fits */
+    .hero-content-glass { width: 100% !important; max-width: 100% !important; margin: 0 auto !important; padding: 30px 15px !important; box-sizing: border-box !important; border-radius: 15px !important; }
     .about-grid { grid-template-columns: 1fr; }
-    .container { padding: 0 15px; }
 
-    /* 5. Mobile Nav Drawer */
+    
+    /* Mobile Nav Drawer */
     .hamburger { display: block; }
     .nav-bubble { display: none !important; }
-    .nav-links {
-        position: fixed; top: 0; right: -100%; height: 100vh; width: 75%;
-        background: rgba(10, 25, 47, 0.98); backdrop-filter: blur(10px);
-        flex-direction: column; justify-content: center; align-items: center;
-        transition: right 0.3s ease-in-out; box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
-    }
+    .nav-links { position: fixed; top: 0; right: -100%; height: 100vh; width: 75%; background: rgba(10, 25, 47, 0.98); backdrop-filter: blur(10px); flex-direction: column; justify-content: center; align-items: center; transition: right 0.3s ease-in-out; box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5); }
     .nav-links.active { right: 0; }
     .nav-links a { font-size: 1.2rem; margin: 20px 0; display: block; }
+}
+
+/* --- RADAR ANIMATION --- */
+@keyframes radar-sweep {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* --- HERO BUTTONS GROUP --- */
+.hero-buttons {
+    display: flex;
+    gap: 20px;          /* Space between the two buttons */
+    margin-top: 30px;   /* Space above the whole group */
+    flex-wrap: wrap;    /* Allows them to stack on very small phones */
+}
+
+/* Update the base button to remove its old individual margin */
+.btn {
+    margin-top: 0 !important;
+}
+
+/* NEW: Solid Button Variant (for higher emphasis) */
+.btn-solid {
+    background-color: var(--accent);
+    color: var(--bg-main); /* Dark text on the bright neon button */
+    font-weight: 700;      /* Make text bolder */
+}
+/* Hover effect for solid button */
+.btn-solid:hover {
+    background-color: rgba(100, 255, 218, 0.85);
+}
+
+/* --- PREMIUM CONTACT SECTION --- */
+
+/* The main glass card for contact info */
+.contact-card {
+    background: rgba(17, 34, 64, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    padding: 50px;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden; /* Keeps inner glow inside */
+}
+
+/* Subtle hover lift for the whole card */
+.contact-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* The "Open to Work" Status Pill */
+.status-indicator {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(100, 255, 218, 0.1);
+    border: 1px solid var(--accent);
+    padding: 8px 20px;
+    border-radius: 50px;
+    color: var(--accent);
+    font-family: monospace;
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+}
+
+/* The pulsing green dot */
+.status-dot {
+    width: 10px;
+    height: 10px;
+    background-color: var(--accent);
+    border-radius: 50%;
+    margin-right: 10px;
+    box-shadow: 0 0 0 0 rgba(100, 255, 218, 0.7);
+    animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+    0% { box-shadow: 0 0 0 0 rgba(100, 255, 218, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(100, 255, 218, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(100, 255, 218, 0); }
+}
+
+/* Massive clickable email link */
+.email-big {
+    display: block;
+    font-size: 2rem; /* Very large */
+    font-weight: 800;
+    margin: 30px 0;
+    color: var(--text-primary); /* Start white */
+}
+.email-big:hover {
+    color: var(--accent); /* Glow neon on hover */
+    text-decoration: underline;
+    text-underline-offset: 10px;
+}
+
+/* Bigger, better spaced social icons */
+.contact-socials {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+.contact-socials a {
+    color: var(--text-secondary);
+    font-size: 1.8rem;
+    transition: all 0.3s ease;
+}
+.contact-socials a:hover {
+    color: var(--accent);
+    transform: scale(1.2); /* Slight grow on hover */
 }

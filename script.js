@@ -1,3 +1,4 @@
+/* --- ANIMATION ON SCROLL LOGIC --- */
 console.log("Portfolio loaded successfully.");
 
 const elementsToAnimate = document.querySelectorAll(
