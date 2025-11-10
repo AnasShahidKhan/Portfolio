@@ -190,7 +190,8 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
     h2::after { display: none !important; } /* Hide lines next to headings */
     /* Inside @media (max-width: 768px) */
     .hero-content-glass::before,
-    .hero-content-glass::after {
+    .hero-content-glass::after,
+    .radar-blips {
         display: none !important;
     }
 
@@ -211,6 +212,69 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
 @keyframes radar-sweep {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
+}
+
+/* --- RADAR BLIPS (RED DOTS) --- */
+
+/* 1. Container matched perfectly to the radar's position */
+.radar-blips {
+    position: absolute;
+    /* MUST match the exact position/size of the radar ::before/::after */
+    right: -150px;
+    bottom: -150px;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    z-index: 0; /* Sits on top of radar grid but behind text */
+    pointer-events: none;
+}
+
+/* 2. Common styles for all dots */
+.blip {
+    position: absolute;
+    display: block;
+    width: 8px;
+    height: 8px;
+    background-color: #ff3d3d; /* Bright Radar Red */
+    border-radius: 50%;
+    opacity: 0; /* Hidden by default until 'hit' by beam */
+    box-shadow: 0 0 10px #ff3d3d;
+}
+
+/* 3. The "Hit" Animation
+   - Duration MUST be 6s to match the beam's rotation speed.
+   - It flashes ON instantly at 0%, then slowly fades OUT.
+*/
+@keyframes blip-flash {
+    0% { opacity: 1; transform: scale(2); }  /* Beam hits: bright and big */
+    10% { opacity: 1; transform: scale(1.5); }
+    100% { opacity: 0; transform: scale(1); } /* Fades out until next rotation */
+}
+
+/* --- INDIVIDUAL DOT POSITIONS & TIMING (Final Visible Sequence) --- */
+
+/* Blip 2: EARLY (Top-right, hits at 0.8s) */
+.blip-2 {
+    top: 150px;
+    right: 180px;
+    animation: blip-flash 6s infinite linear;
+    animation-delay: 0.6s;
+}
+
+/* Blip 3: MIDDLE (Moved to safe Bottom-Left area, hits at 3.8s) */
+.blip-3 {
+    top: 400px;   /* Lower half of radar */
+    right: 500px; /* Left side of radar (safe area) */
+    animation: blip-flash 6s infinite linear;
+    animation-delay: 4.0s;
+}
+
+/* Blip 1: LATE (Top-left, hits at 4.8s) */
+.blip-1 {
+    top: 200px;
+    right: 350px;
+    animation: blip-flash 6s infinite linear;
+    animation-delay: 5.4s;
 }
 
 /* --- HERO BUTTONS GROUP --- */
