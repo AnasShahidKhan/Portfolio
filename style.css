@@ -387,3 +387,13 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
     color: var(--accent);
     transform: scale(1.2); /* Slight grow on hover */
 }
+
+/* --- FULL WIDTH BUBBLE UTILITY --- */
+.full-width-bubble {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 50px; /* Space it away from the grid above it */
+    padding: 40px;
+    text-align: center;
+    box-sizing: border-box;
+}
