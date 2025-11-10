@@ -39,7 +39,13 @@ h2 { font-size: 2rem; margin-bottom: 40px; display: flex; align-items: center; }
 
 /* --- NAVIGATION --- */
 nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; position: fixed; width: 100%; top: 0; left: 0; background: rgba(10, 25, 47, 0.6) !important; backdrop-filter: blur(20px) !important; -webkit-backdrop-filter: blur(20px) !important; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-.logo { color: var(--accent); font-weight: 800; font-size: 1.5rem; }
+.logo {
+    color: var(--accent) !important; /* Forces accent color even if it's a visited link */
+    font-weight: 800;
+    font-size: 1.5rem;
+    text-decoration: none !important; /* Removes standard link underline */
+    cursor: pointer; /* Shows standard hand icon on hover */
+}
 .nav-links { position: relative; display: flex; align-items: center; padding: 5px; }
 .nav-links a { position: relative; z-index: 2; padding: 8px 16px; margin: 0 5px; color: var(--text-primary); font-size: 0.9rem; font-family: monospace; }
 .nav-links a:hover { color: #ffffff !important; }
@@ -206,6 +212,28 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
     .nav-links { position: fixed; top: 0; right: -100%; height: 100vh; width: 75%; background: rgba(10, 25, 47, 0.98); backdrop-filter: blur(10px); flex-direction: column; justify-content: center; align-items: center; transition: right 0.3s ease-in-out; box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5); }
     .nav-links.active { right: 0; }
     .nav-links a { font-size: 1.2rem; margin: 20px 0; display: block; }
+
+    /* --- ADD INSIDE @media (max-width: 768px) BLOCK --- */
+
+    /* FORCE 1-LINE ADAPTIVE EMAIL */
+    .email-big {
+        /* 1. Forces text to stay on one line no matter what */
+        white-space: nowrap !important;
+
+        /* 2. Sets font size to 3.8% of screen width.
+           This specific number is calculated to fit 26 characters
+           into a padded mobile box without overflowing. */
+        font-size: 3.8vw !important;
+
+        /* 3. removes any hidden overflow or '...' dots */
+        overflow: visible !important;
+        text-overflow: clip !important;
+
+        /* 4. Centers it and ensures it doesn't have huge margins on phone */
+        display: block;
+        margin: 20px auto !important;
+        width: 100%;
+    }
 }
 
 /* --- RADAR ANIMATION --- */
