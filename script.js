@@ -83,3 +83,26 @@ document.querySelectorAll('.nav-links a').forEach(link => {
         icon.classList.add('fa-bars');
     });
 });
+
+/* --- STICKY NAV BUTTON LOGIC --- */
+const nav = document.querySelector('nav');
+const heroSection = document.querySelector('.hero');
+
+// This observer will watch the hero section
+const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (!entry.isIntersecting) {
+            // Hero is OFF screen, so show the button
+            nav.classList.add('nav-scrolled');
+        } else {
+            // Hero is ON screen, so hide the button
+            nav.classList.remove('nav-scrolled');
+        }
+    });
+}, { 
+    threshold: 0,
+    rootMargin: "-100px 0px 0px 0px" /* Triggers 100px *before* hero is fully gone */
+});
+
+// Tell the observer to watch the hero section
+navObserver.observe(heroSection);

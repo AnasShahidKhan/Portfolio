@@ -51,6 +51,11 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
 .nav-links a:hover { color: #ffffff !important; }
 .nav-bubble { position: absolute; height: 40px; border-radius: 20px; z-index: -1; opacity: 0; background: rgba(100, 255, 218, 0.15); backdrop-filter: blur(8px); border: 1px solid rgba(100, 255, 218, 0.2); box-shadow: 0 0 15px rgba(100, 255, 218, 0.1); transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); }
 .hamburger { display: none; font-size: 1.5rem; color: var(--accent); cursor: pointer; z-index: 2000; }
+/* NEW rule for the right-side wrapper */
+.nav-right {
+    display: flex;
+    align-items: center;
+}
 
 /* --- HERO SECTION --- */
 /* Updated Hero Section */
@@ -439,4 +444,38 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
 
 .bio-list li {
     margin-bottom: 10px; /* Adds space between items */
+}
+
+/* --- SCROLLING NAV BUTTON --- */
+.nav-cv-btn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-family: monospace;
+    /* NEW: Adds space between button and links */
+    margin-right: 15px;
+    
+    /* Hide by default */
+    display: none;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.3s ease;
+}
+/* ... rest of .nav-scrolled rules ... */
+
+/* 2. Create the "scrolled" state */
+/* This class will be added by JavaScript */
+nav.nav-scrolled .nav-cv-btn {
+    display: inline-block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 3. Make sure this new button disappears on mobile */
+/* Add .nav-cv-btn to the mobile hamburger rule */
+@media (max-width: 768px) {
+    .hamburger { display: block; }
+    .nav-bubble { display: none !important; }
+    .nav-cv-btn { display: none !important; } /* Hides it on mobile */
+    
+    /* ... rest of your mobile rules ... */
 }
