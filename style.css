@@ -425,3 +425,18 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
     text-align: center;
     box-sizing: border-box;
 }
+
+/* --- NEW STYLES FOR BIO LIST --- */
+.bio-list {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    list-style-type: decimal;     /* 1. 2. 3. */
+    list-style-position: inside;  /* Puts numbers inside the box */
+    text-align: left;             /* Aligns list text to the left */
+    max-width: 600px;             /* Keeps lines from getting too long */
+    margin: 0 auto;               /* Centers the whole list block */
+}
+
+.bio-list li {
+    margin-bottom: 10px; /* Adds space between items */
+}
