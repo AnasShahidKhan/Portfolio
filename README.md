@@ -4,7 +4,7 @@ This repository contains the source code for my personal portfolio website, buil
 
 ## 🌐 Live Demo
 
-You can view the live site here: **[https://anasshahid.me](https://anasshahid.me)**
+You can view the live site here: **[https://anasshahid.me]([https://anasshahid.me](https://anasshahidkhan.github.io/Portfolio/))**
 
 ## ✨ Features
 
